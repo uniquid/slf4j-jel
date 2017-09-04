@@ -38,36 +38,39 @@ import org.slf4j.ILoggerFactory;
  */
 public class JELFactory implements ILoggerFactory {
 
-    ConcurrentMap<String, Logger> loggerMap;
+	ConcurrentMap<String, Logger> loggerMap;
 
-    public JELFactory() {
-        loggerMap = new ConcurrentHashMap<String, Logger>();
-    }
+	public JELFactory() {
+		loggerMap = new ConcurrentHashMap<String, Logger>();
+	}
 
-    /**
-     * Return an appropriate {@link JELAdapter} instance by name.
-     */
-    public Logger getLogger(String name) {
-        Logger simpleLogger = loggerMap.get(name);
-        if (simpleLogger != null) {
-            return simpleLogger;
-        } else {
-            Logger newInstance = new JELAdapter(name);
-            Logger oldInstance = loggerMap.putIfAbsent(name, newInstance);
-            return oldInstance == null ? newInstance : oldInstance;
-        }
-    }
+	/**
+	 * Return an appropriate {@link JELAdapter} instance by name.
+	 */
+	public Logger getLogger(String name) {
 
-    /**
-     * Clear the internal logger cache.
-     *
-     * This method is intended to be called by classes (in the same package) for
-     * testing purposes. This method is internal. It can be modified, renamed or
-     * removed at any time without notice.
-     *
-     * You are strongly discouraged from calling this method in production code.
-     */
-    void reset() {
-        loggerMap.clear();
-    }
+		Logger simpleLogger = loggerMap.get(name);
+
+		if (simpleLogger != null) {
+			return simpleLogger;
+		} else {
+			Logger newInstance = new JELAdapter(name);
+			Logger oldInstance = loggerMap.putIfAbsent(name, newInstance);
+			return oldInstance == null ? newInstance : oldInstance;
+		}
+
+	}
+
+	/**
+	 * Clear the internal logger cache.
+	 *
+	 * This method is intended to be called by classes (in the same package) for
+	 * testing purposes. This method is internal. It can be modified, renamed or
+	 * removed at any time without notice.
+	 *
+	 * You are strongly discouraged from calling this method in production code.
+	 */
+	void reset() {
+		loggerMap.clear();
+	}
 }

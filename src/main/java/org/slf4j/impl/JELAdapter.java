@@ -54,7 +54,7 @@ public class JELAdapter extends MarkerIgnoringBase {
 	@Override
 	public void trace(String msg, Throwable t) {
 		
-		logger.trace(msg);
+		logger.trace(msg, t);
 		
 	}
 
@@ -98,7 +98,7 @@ public class JELAdapter extends MarkerIgnoringBase {
 	@Override
 	public void debug(String msg, Throwable t) {
 
-		logger.debug(msg);
+		logger.debug(msg, t);
 		
 	}
 
@@ -144,7 +144,7 @@ public class JELAdapter extends MarkerIgnoringBase {
 	@Override
 	public void info(String msg, Throwable t) {
 
-		logger.info(msg);
+		logger.info(msg, t);
 		
 	}
 
@@ -188,7 +188,7 @@ public class JELAdapter extends MarkerIgnoringBase {
 	@Override
 	public void warn(String msg, Throwable t) {
 		
-		logger.warning(msg);
+		logger.warning(msg, t);
 		
 	}
 
