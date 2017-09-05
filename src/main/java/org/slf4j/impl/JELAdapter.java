@@ -50,7 +50,7 @@ public class JELAdapter extends MarkerIgnoringBase {
 	@Override
 	public void trace(String format, Object... arguments) {
 		
-		FormattingTuple ft = MessageFormatter.format(format, arguments);
+		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
 		
 		logger.trace(ft.getMessage());
 		
@@ -96,7 +96,7 @@ public class JELAdapter extends MarkerIgnoringBase {
 	@Override
 	public void debug(String format, Object... arguments) {
 
-		FormattingTuple ft = MessageFormatter.format(format, arguments);
+		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
 		
 		logger.debug(ft.getMessage());
 		
@@ -144,7 +144,7 @@ public class JELAdapter extends MarkerIgnoringBase {
 	@Override
 	public void info(String format, Object... arguments) {
 
-		FormattingTuple ft = MessageFormatter.format(format, arguments);
+		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
 		
 		logger.info(ft.getMessage());
 		
@@ -181,7 +181,7 @@ public class JELAdapter extends MarkerIgnoringBase {
 	@Override
 	public void warn(String format, Object... arguments) {
 
-		FormattingTuple ft = MessageFormatter.format(format, arguments);
+		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
 		
 		logger.warning(ft.getMessage());
 		
@@ -238,7 +238,7 @@ public class JELAdapter extends MarkerIgnoringBase {
 	@Override
 	public void error(String format, Object... arguments) {
 		
-		FormattingTuple ft = MessageFormatter.format(format, arguments);
+		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
 		
 		logger.error(ft.getMessage());
 		
