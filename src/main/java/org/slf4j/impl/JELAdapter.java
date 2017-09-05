@@ -1,5 +1,7 @@
 package org.slf4j.impl;
 
+import org.gmagnotta.log.LogEventCollector;
+import org.gmagnotta.log.LogLevel;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
@@ -8,6 +10,7 @@ public class JELAdapter extends MarkerIgnoringBase {
 	
 	private static final long serialVersionUID = 1L;
 	private org.gmagnotta.log.Logger logger;
+	private LogEventCollector logEventCollector = LogEventCollector.getInstance();
 	
 	public JELAdapter(String name) {
 		
@@ -17,7 +20,9 @@ public class JELAdapter extends MarkerIgnoringBase {
 
 	@Override
 	public boolean isTraceEnabled() {
-		return true;
+		
+		return LogLevel.TRACE.compareTo(logEventCollector.getLogLevelThreshold()) >= 0;
+		
 	}
 
 	@Override
@@ -60,7 +65,9 @@ public class JELAdapter extends MarkerIgnoringBase {
 
 	@Override
 	public boolean isDebugEnabled() {
-		return true;
+		
+		return LogLevel.DEBUG.compareTo(logEventCollector.getLogLevelThreshold()) >= 0;
+		
 	}
 
 	@Override
@@ -104,7 +111,9 @@ public class JELAdapter extends MarkerIgnoringBase {
 
 	@Override
 	public boolean isInfoEnabled() {
-		return true;
+		
+		return LogLevel.INFO.compareTo(logEventCollector.getLogLevelThreshold()) >= 0;
+		
 	}
 
 	@Override
@@ -150,7 +159,9 @@ public class JELAdapter extends MarkerIgnoringBase {
 
 	@Override
 	public boolean isWarnEnabled() {
-		return true;
+		
+		return LogLevel.WARNING.compareTo(logEventCollector.getLogLevelThreshold()) >= 0;
+		
 	}
 
 	@Override
@@ -194,7 +205,9 @@ public class JELAdapter extends MarkerIgnoringBase {
 
 	@Override
 	public boolean isErrorEnabled() {
-		return true;
+		
+		return LogLevel.ERROR.compareTo(logEventCollector.getLogLevelThreshold()) >= 0;
+		
 	}
 
 	@Override
