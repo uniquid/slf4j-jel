@@ -25,45 +25,35 @@ public class JELAdapter implements Logger, Serializable {
 
 	@Override
 	public String getName() {
+
 		return name;
+
+	}
+
+	@Override
+	public boolean isTraceEnabled() {
+
+		return LogLevel.TRACE.isHigherOrEqual(logEventCollector.getLogLevelThreshold());
+
 	}
 
 	@Override
 	public boolean isTraceEnabled(Marker marker) {
+
 		return isTraceEnabled();
-	}
-
-	@Override
-	public String toString() {
-		return this.getClass().getName() + "(" + getName() + ")";
-	}
-	
-	@Override
-	public boolean isTraceEnabled() {
-
-		return LogLevel.TRACE.compareTo(logEventCollector.getLogLevelThreshold()) >= 0;
 
 	}
 
-	@Override
-	public void trace(Marker marker, String msg) {
-		logger.trace(marker.getName(), msg);
-	}
-	
 	@Override
 	public void trace(String msg) {
 		logger.trace(msg);
 	}
 
 	@Override
-	public void trace(Marker marker, String format, Object arg) {
-		
-		FormattingTuple ft = MessageFormatter.format(format, arg);
-
-		logger.trace(marker.getName(), ft.getMessage());
-		
+	public void trace(Marker marker, String msg) {
+		logger.trace(marker.getName(), msg);
 	}
-	
+
 	@Override
 	public void trace(String format, Object arg) {
 
@@ -73,14 +63,14 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void trace(Marker marker, String format, Object arg1, Object arg2) {
-		
-		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
+	public void trace(Marker marker, String format, Object arg) {
+
+		FormattingTuple ft = MessageFormatter.format(format, arg);
 
 		logger.trace(marker.getName(), ft.getMessage());
-		
+
 	}
-	
+
 	@Override
 	public void trace(String format, Object arg1, Object arg2) {
 
@@ -89,14 +79,14 @@ public class JELAdapter implements Logger, Serializable {
 		logger.trace(ft.getMessage());
 
 	}
-	
+
 	@Override
-	public void trace(Marker marker, String format, Object... arguments) {
-		
-		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+	public void trace(Marker marker, String format, Object arg1, Object arg2) {
+
+		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
 
 		logger.trace(marker.getName(), ft.getMessage());
-		
+
 	}
 
 	@Override
@@ -107,12 +97,14 @@ public class JELAdapter implements Logger, Serializable {
 		logger.trace(ft.getMessage());
 
 	}
-	
+
 	@Override
-	public void trace(Marker marker, String msg, Throwable t) {
-		
-		logger.trace(marker.getName(), msg, t);
-		
+	public void trace(Marker marker, String format, Object... arguments) {
+
+		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+
+		logger.trace(marker.getName(), ft.getMessage());
+
 	}
 
 	@Override
@@ -121,37 +113,38 @@ public class JELAdapter implements Logger, Serializable {
 		logger.trace(msg, t);
 
 	}
-	
+
 	@Override
-	public boolean isDebugEnabled(Marker marker) {
-		return isDebugEnabled();
+	public void trace(Marker marker, String msg, Throwable t) {
+
+		logger.trace(marker.getName(), msg, t);
+
 	}
 
 	@Override
 	public boolean isDebugEnabled() {
 
-		return LogLevel.DEBUG.compareTo(logEventCollector.getLogLevelThreshold()) >= 0;
+		return LogLevel.DEBUG.isHigherOrEqual(logEventCollector.getLogLevelThreshold());
 
 	}
 
 	@Override
-	public void debug(Marker marker, String msg) {
-		logger.debug(marker.getName(), msg);
+	public boolean isDebugEnabled(Marker marker) {
+
+		return isDebugEnabled();
+
 	}
-	
+
 	@Override
 	public void debug(String msg) {
 		logger.debug(msg);
 	}
 
 	@Override
-	public void debug(Marker marker, String format, Object arg) {
-		
-		FormattingTuple ft = MessageFormatter.format(format, arg);
-
-		logger.debug(marker.getName(), ft.getMessage());
+	public void debug(Marker marker, String msg) {
+		logger.debug(marker.getName(), msg);
 	}
-	
+
 	@Override
 	public void debug(String format, Object arg) {
 
@@ -160,14 +153,14 @@ public class JELAdapter implements Logger, Serializable {
 		logger.debug(ft.getMessage());
 
 	}
-	
+
 	@Override
-	public void debug(Marker marker, String format, Object arg1, Object arg2) {
-		
-		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
+	public void debug(Marker marker, String format, Object arg) {
+
+		FormattingTuple ft = MessageFormatter.format(format, arg);
 
 		logger.debug(marker.getName(), ft.getMessage());
-		
+
 	}
 
 	@Override
@@ -180,14 +173,13 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void debug(Marker marker, String format, Object... arguments) {
-		
-		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+	public void debug(Marker marker, String format, Object arg1, Object arg2) {
+
+		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
 
 		logger.debug(marker.getName(), ft.getMessage());
-		
+
 	}
-	
 
 	@Override
 	public void debug(String format, Object... arguments) {
@@ -199,10 +191,12 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void debug(Marker marker, String msg, Throwable t) {
-		
-		logger.debug(marker.getName(), msg, t);
-		
+	public void debug(Marker marker, String format, Object... arguments) {
+
+		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+
+		logger.debug(marker.getName(), ft.getMessage());
+
 	}
 
 	@Override
@@ -211,23 +205,25 @@ public class JELAdapter implements Logger, Serializable {
 		logger.debug(msg, t);
 
 	}
-	
+
 	@Override
-	public boolean isInfoEnabled(Marker marker) {
-		return isInfoEnabled();
+	public void debug(Marker marker, String msg, Throwable t) {
+
+		logger.debug(marker.getName(), msg, t);
+
 	}
 
 	@Override
 	public boolean isInfoEnabled() {
 
-		return LogLevel.INFO.compareTo(logEventCollector.getLogLevelThreshold()) >= 0;
+		return LogLevel.INFO.isHigherOrEqual(logEventCollector.getLogLevelThreshold());
 
 	}
-	
-	@Override
-	public void info(Marker marker, String msg) {
 
-		logger.info(marker.getName(), msg);
+	@Override
+	public boolean isInfoEnabled(Marker marker) {
+
+		return isInfoEnabled();
 
 	}
 
@@ -239,12 +235,10 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void info(Marker marker, String format, Object arg) {
-		
-		FormattingTuple ft = MessageFormatter.format(format, arg);
+	public void info(Marker marker, String msg) {
 
-		logger.info(marker.getName(), ft.getMessage());
-		
+		logger.info(marker.getName(), msg);
+
 	}
 
 	@Override
@@ -257,12 +251,12 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void info(Marker marker, String format, Object arg1, Object arg2) {
-		
-		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
+	public void info(Marker marker, String format, Object arg) {
+
+		FormattingTuple ft = MessageFormatter.format(format, arg);
 
 		logger.info(marker.getName(), ft.getMessage());
-		
+
 	}
 
 	@Override
@@ -275,12 +269,12 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void info(Marker marker, String format, Object... arguments) {
-		
-		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+	public void info(Marker marker, String format, Object arg1, Object arg2) {
+
+		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
 
 		logger.info(marker.getName(), ft.getMessage());
-		
+
 	}
 
 	@Override
@@ -293,10 +287,12 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void info(Marker marker, String msg, Throwable t) {
-		
-		logger.info(marker.getName(), msg, t);
-		
+	public void info(Marker marker, String format, Object... arguments) {
+
+		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+
+		logger.info(marker.getName(), ft.getMessage());
+
 	}
 
 	@Override
@@ -305,24 +301,26 @@ public class JELAdapter implements Logger, Serializable {
 		logger.info(msg, t);
 
 	}
-	
+
 	@Override
-	public boolean isWarnEnabled(Marker marker) {
-		return isWarnEnabled();
+	public void info(Marker marker, String msg, Throwable t) {
+
+		logger.info(marker.getName(), msg, t);
+
 	}
 
 	@Override
 	public boolean isWarnEnabled() {
 
-		return LogLevel.WARNING.compareTo(logEventCollector.getLogLevelThreshold()) >= 0;
+		return LogLevel.WARNING.isHigherOrEqual(logEventCollector.getLogLevelThreshold());
 
 	}
-	
+
 	@Override
-	public void warn(Marker marker, String msg) {
-		
-		logger.warning(marker.getName(), msg);
-		
+	public boolean isWarnEnabled(Marker marker) {
+
+		return isWarnEnabled();
+
 	}
 
 	@Override
@@ -331,12 +329,8 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void warn(Marker marker, String format, Object arg) {
-
-		FormattingTuple ft = MessageFormatter.format(format, arg);
-
-		logger.warning(marker.getName(), ft.getMessage());
-
+	public void warn(Marker marker, String msg) {
+		logger.warning(marker.getName(), msg);
 	}
 
 	@Override
@@ -349,32 +343,14 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void warn(Marker marker, String format, Object arg1, Object arg2) {
+	public void warn(Marker marker, String format, Object arg) {
 
-		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
-		
-		logger.warning(marker.getName(), ft.getMessage());
-		
-	}
-
-	@Override
-	public void warn(String format, Object arg1, Object arg2) {
-		
-		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
-		
-		logger.warning(ft.getMessage());
-		
-	}
-
-	@Override
-	public void warn(Marker marker, String format, Object... arguments) {
-		
-		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+		FormattingTuple ft = MessageFormatter.format(format, arg);
 
 		logger.warning(marker.getName(), ft.getMessage());
-		
+
 	}
-	
+
 	@Override
 	public void warn(String format, Object... arguments) {
 
@@ -383,14 +359,33 @@ public class JELAdapter implements Logger, Serializable {
 		logger.warning(ft.getMessage());
 
 	}
-	
+
 	@Override
-	public void warn(Marker marker, String msg, Throwable t) {
-		
-		logger.warning(marker.getName(), msg, t);
-		
+	public void warn(Marker marker, String format, Object... arguments) {
+
+		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+
+		logger.warning(marker.getName(), ft.getMessage());
+
 	}
 
+	@Override
+	public void warn(String format, Object arg1, Object arg2) {
+
+		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
+
+		logger.warning(ft.getMessage());
+
+	}
+
+	@Override
+	public void warn(Marker marker, String format, Object arg1, Object arg2) {
+
+		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
+
+		logger.warning(marker.getName(), ft.getMessage());
+
+	}
 
 	@Override
 	public void warn(String msg, Throwable t) {
@@ -398,26 +393,28 @@ public class JELAdapter implements Logger, Serializable {
 		logger.warning(msg, t);
 
 	}
-	
+
 	@Override
-	public boolean isErrorEnabled(Marker marker) {
-		return isErrorEnabled();
+	public void warn(Marker marker, String msg, Throwable t) {
+
+		logger.warning(marker.getName(), msg, t);
+
 	}
 
 	@Override
 	public boolean isErrorEnabled() {
 
-		return LogLevel.ERROR.compareTo(logEventCollector.getLogLevelThreshold()) >= 0;
+		return LogLevel.ERROR.isHigherOrEqual(logEventCollector.getLogLevelThreshold());
 
 	}
 
 	@Override
-	public void error(Marker marker, String msg) {
-		
-		logger.error(marker.getName(), msg);
-		
+	public boolean isErrorEnabled(Marker marker) {
+
+		return isErrorEnabled();
+
 	}
-	
+
 	@Override
 	public void error(String msg) {
 
@@ -426,14 +423,12 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void error(Marker marker, String format, Object arg) {
-		
-		FormattingTuple ft = MessageFormatter.format(format, arg);
+	public void error(Marker marker, String msg) {
 
-		logger.error(marker.getName(), ft.getMessage());
-		
+		logger.error(marker.getName(), msg);
+
 	}
-	
+
 	@Override
 	public void error(String format, Object arg) {
 
@@ -444,13 +439,13 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void error(Marker marker, String format, Object arg1, Object arg2) {
-		
-		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
+	public void error(Marker marker, String format, Object arg) {
+
+		FormattingTuple ft = MessageFormatter.format(format, arg);
 
 		logger.error(marker.getName(), ft.getMessage());
+
 	}
-	
 
 	@Override
 	public void error(String format, Object arg1, Object arg2) {
@@ -462,14 +457,13 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void error(Marker marker, String format, Object... arguments) {
-		
-		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+	public void error(Marker marker, String format, Object arg1, Object arg2) {
+
+		FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);
 
 		logger.error(marker.getName(), ft.getMessage());
-		
+
 	}
-	
 
 	@Override
 	public void error(String format, Object... arguments) {
@@ -481,16 +475,25 @@ public class JELAdapter implements Logger, Serializable {
 	}
 
 	@Override
-	public void error(Marker marker, String msg, Throwable t) {
-		
-		logger.error(marker.getName(), msg, t);
-		
+	public void error(Marker marker, String format, Object... arguments) {
+
+		FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+
+		logger.error(marker.getName(), ft.getMessage());
+
 	}
 
 	@Override
 	public void error(String msg, Throwable t) {
 
 		logger.error(msg, t);
+
+	}
+
+	@Override
+	public void error(Marker marker, String msg, Throwable t) {
+
+		logger.error(marker.getName(), msg, t);
 
 	}
 
