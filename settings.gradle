@@ -1,0 +1,5 @@
+rootProject.name = 'slf4j-jel'
+
+include ':java-embeddable-logger'
+
+project(':java-embeddable-logger').projectDir = "$rootDir/../java-embeddable-logger" as File
